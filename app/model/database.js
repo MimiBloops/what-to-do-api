@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
     user     : 'root',
     password : 'root',
     database : 'whatToDo',
-    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+    //socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 });
 
 connection.connect(function(err) {
