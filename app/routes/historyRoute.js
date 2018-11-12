@@ -9,8 +9,6 @@ router.route('/')
     .get(history.list_all_history)
     .post(history.create_a_history);
 
-    router.route('/:idUser')
-    .get(history.list_history_from_user);
 /*router.get('/', (req, res, next) => {
     res.status(200).json({
         message: 'Handeling GET request to /history'
