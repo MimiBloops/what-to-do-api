@@ -1,11 +1,9 @@
-const express = require('express');
-const router = express.Router();
-
+'user strict';
 const sql = require('./database');
 
 var History = function(history){
     this.CreatedAt = history.CreatedAt;
-    this.IdCustomer = history.IdCustomer;
+    this.IdUser = history.IdUser;
     this.Type = history.Type;
     this.Name = history.Name;
 };
@@ -36,4 +34,39 @@ History.getAllHistory = function getAllHistory(result){
     });
 };
 
-router.get('/')
+History.getHistoryById = function getHistoryById(historyId, result) {
+    sql.query("Select CreatedAt, IdUser, Type, Name where id = ?", historyId, function (err, res) {
+        if (err) {
+            console.log("error : ", err);
+            result(null, err);
+        }
+        else {
+            console.log('history : ', res);
+            result(null, res);
+        }
+    });
+};
+History.updateHistoryById = function updateHistoryById(id, history, result) {
+    sql.query("UPDATE History SET CreatedAt = ?, IdUser = ?, Type = ?, Name = ? WHERE id = ?",
+        [history.CreatedAt, history.IdUser, history.Type, history.Name, id], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+            }
+            else {
+                result(null, res);
+            }
+        });
+};
+History.removeHistoryById = function removeHistoryById(id, result) {
+    sql.query("DELETE FROM History WHERE id = ?", [id], function (err, res) {
+
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else {
+            result(null, res);
+        }
+    });
+};

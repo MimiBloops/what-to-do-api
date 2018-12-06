@@ -1,0 +1,418 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "What to do API",
+        "description": "What to do API which provide all needed informations in order to create an application that provide a random activity for the evening",
+        "version": "1.0"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user": {
+            "get": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "list_all_user",
+                "tags": [
+                    "User"
+                ],
+                "description": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "create_a_user",
+                "tags": [
+                    "User"
+                ],
+                "description": "Create a user",
+                "parameters": [
+                    {
+                        "name": "CreatedAt",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Login",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "Password",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "SteamLogin",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "SteamPassword",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "TwithLogin",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "TwitchPassword",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description" : "User object not valid",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            }
+        },
+        "/user/{userId}": {
+            "get": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "read_a_user",
+                "tags": [
+                    "User"
+                ],
+                "description": "Get user informations from the Id",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "put": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "update_a_user",
+                "tags": [
+                    "History"
+                ],
+                "description": "Update user information from Id",
+                "parameters": [
+                    {
+                        "name": "CreatedAt",
+                        "in": "formData",
+                        "required": true,
+                        "type": "text"
+                    },
+                    {
+                        "name": "Login",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "Password",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "SteamLogin",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "SteamPassword",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "TwithLogin",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "TwitchPassword",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
+            "delete" : {
+                "x-swagger-router-controller": "userController",
+                "operationId": "delete_a_user",
+                "tags": [
+                    "User"
+                ],
+                "description": "Delete user from Id",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/history": {
+            "get": {
+                "x-swagger-router-controller": "historyController",
+                "operationId": "list_all_history",
+                "tags": [
+                    "History"
+                ],
+                "description": "Get all history",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/History"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "historyController",
+                "operationId": "create_a_history",
+                "tags": [
+                    "History"
+                ],
+                "description": "Create a history",
+                "parameters": [
+                    {
+                        "name": "CreatedAt",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "IdUser",
+                        "in": "formData",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "Type",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "Name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/History"
+                        }
+                    },
+                    "400": {
+                        "description" : "History object not valid",
+                        "schema": {
+                            "$ref": "#/definitions/History"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            }
+        },
+        "/history/{historyId}": {
+            "get": {
+                "x-swagger-router-controller": "historyController",
+                "operationId": "read_a_history",
+                "tags": [
+                    "History"
+                ],
+                "description": "Get history informations from the Id",
+                "parameters": [
+                    {
+                        "name": "historyId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/History"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "put": {
+                "x-swagger-router-controller": "historyController",
+                "operationId": "update_a_history",
+                "tags": [
+                    "History"
+                ],
+                "description": "Update history information from Id",
+                "parameters": [
+                    {
+                        "name": "CreatedAt",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "IdUser",
+                        "in": "formData",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "Type",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "Name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
+            "delete" : {
+                "x-swagger-router-controller": "historyController",
+                "operationId": "delete_a_history",
+                "tags": [
+                    "History"
+                ],
+                "description": "Delete history from Id",
+                "parameters": [
+                    {
+                        "name": "historyId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "responses": {
+            "GlobalError": {
+                "description": "Execution error"
+            }
+        },
+        "User": {
+            "required": [
+                "CreatedAt",
+                "Login",
+                "Password",
+                "SteamLogin",
+                "SteamPassword",
+                "TwithLogin",
+                "TwitchPassword"
+            ],
+            "properties": {
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "Login": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "SteamLogin": {
+                    "type": "string"
+                },
+                "SteamPassword": {
+                    "type": "string"
+                },
+                "TwithLogin": {
+                    "type": "string"
+                },
+                "TwitchPassword": {
+                    "type": "string"
+                }
+            }
+        },
+        "History": {
+            "required": [
+                "CreatedAt",
+                "IdUser",
+                "Type",
+                "Name"
+            ],
+            "properties": {
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "IdUser": {
+                    "type": "string"
+                },
+                "Type": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,10 +1,13 @@
-const express = require('express');
-const router = express.Router();
+'use strict';
+module.exports = function (app) {
+    var user = require('../controller/historyController.js');
 
-const history = require('../controller/historyController');
+    app.route('/history')
+        .get(user.list_all_history)
+        .post(user.create_a_history);
 
-router.route('/')
-    .get(history.list_all_history)
-    .post(history.create_a_history);
-
-module.exports = router;
+    app.route('/history/:historyId')
+        .get(user.read_a_history)
+        .put(user.update_a_history)
+        .delete(user.delete_a_history);
+};
