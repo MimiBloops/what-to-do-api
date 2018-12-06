@@ -350,6 +350,135 @@
                 ],
                 "responses": {}
             }
+        },
+        "/type": {
+            "get": {
+                "x-swagger-router-controller": "typeController",
+                "operationId": "list_all_type",
+                "tags": [
+                    "Type"
+                ],
+                "description": "Get all type",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Type"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "typeController",
+                "operationId": "create_a_history",
+                "tags": [
+                    "Type"
+                ],
+                "description": "Create a history",
+                "parameters": [
+                    {
+                        "name": "Type",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Type"
+                        }
+                    },
+                    "400": {
+                        "description" : "Type object not valid",
+                        "schema": {
+                            "$ref": "#/definitions/Type"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            }
+        },
+        "/type/{typeId}": {
+            "get": {
+                "x-swagger-router-controller": "typeController",
+                "operationId": "read_a_type",
+                "tags": [
+                    "Type"
+                ],
+                "description": "Get type informations from the Id",
+                "parameters": [
+                    {
+                        "name": "typeId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Type"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "put": {
+                "x-swagger-router-controller": "typeController",
+                "operationId": "update_a_type",
+                "tags": [
+                    "Type"
+                ],
+                "description": "Update type information from Id",
+                "parameters": [
+                    {
+                        "name": "Type",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
+            "delete" : {
+                "x-swagger-router-controller": "typeController",
+                "operationId": "delete_a_type",
+                "tags": [
+                    "Type"
+                ],
+                "description": "Delete type from Id",
+                "parameters": [
+                    {
+                        "name": "typeId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {}
+            }
         }
     },
     "definitions": {
@@ -406,6 +535,20 @@
                 "IdUser": {
                     "type": "string"
                 },
+                "Type": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Type": {
+            "required": [
+                "Type",
+                "Name"
+            ],
+            "properties": {
                 "Type": {
                     "type": "string"
                 },
