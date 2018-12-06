@@ -10,4 +10,8 @@ module.exports = function (app) {
         .get(user.read_a_user)
         .put(user.update_a_user)
         .delete(user.delete_a_user);
+
+    app.route('/user/:userId/type')
+        .get(user.list_type_user)
+        .post(user.add_type_user);
 };

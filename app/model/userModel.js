@@ -49,6 +49,7 @@ User.getUserById = function getUserById(userId, result) {
         }
     });
 };
+
 User.updateUserById = function updateUserById(id, user, result) {
     sql.query("UPDATE User SET CreatedAt = ?, Login = ?, Password = ?, SteamLogin = ?, SteamPassword = ?, TwitchLogin = ?, TwitchPassword = ? WHERE id = ?",
         [user.CreatedAt, user.Login, user.Password, user.SteamLogin, user.SteamPassword, user.TwithLogin, user.TwitchPassword, id], function (err, res) {
@@ -61,6 +62,7 @@ User.updateUserById = function updateUserById(id, user, result) {
             }
         });
 };
+
 User.removeUserById = function removeUserById(id, result) {
     sql.query("DELETE FROM User WHERE id = ?", [id], function (err, res) {
 
@@ -73,3 +75,31 @@ User.removeUserById = function removeUserById(id, result) {
         }
     });
 };
+
+User.getUserType = function getUserType(id, result){
+    var sqlQuery = "SELECT t.Type, t.Name FROM Type AS t LEFT JOIN UserType AS ut ON ut.UserId = ? WHERE t.Id = ut.TypeId";
+    sql.query(sqlQuery, userId, function(err, res){
+        if(err){
+            console.log("error ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
+User.createUserType = function createUserType(userId, typeId, result){
+    var sqlQuery = "INSERT INTO UserType (UserId, TypeId) VALUES (?, ?)";
+    sql.query(sqlQuery, [userId, typeId], function(err, res){
+        if(err){
+            console.log("error ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
+module.exports = User;

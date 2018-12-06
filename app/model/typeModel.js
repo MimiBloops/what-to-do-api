@@ -70,3 +70,5 @@ Type.removeTypeById = function removeTypeById(id, result) {
         }
     });
 };
+
+module.exports = Type;

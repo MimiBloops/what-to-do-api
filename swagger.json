@@ -88,7 +88,7 @@
                         }
                     },
                     "400": {
-                        "description" : "User object not valid",
+                        "description": "User object not valid",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
@@ -180,7 +180,7 @@
                 ],
                 "responses": {}
             },
-            "delete" : {
+            "delete": {
                 "x-swagger-router-controller": "userController",
                 "operationId": "delete_a_user",
                 "tags": [
@@ -196,6 +196,74 @@
                     }
                 ],
                 "responses": {}
+            }
+        },
+        "/user/{userId}/type": {
+            "get": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "list_type_user",
+                "tags": [
+                    "User"
+                ],
+                "description": "Get user type informations from the Id",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "add_type_user",
+                "tags": [
+                    "User"
+                ],
+                "description": "Create a user type",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "typeId",
+                        "in": "formData",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TypeUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Type user object not valid",
+                        "schema": {
+                            "$ref": "#/definitions/TypeUser"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
             }
         },
         "/history": {
@@ -259,7 +327,7 @@
                         }
                     },
                     "400": {
-                        "description" : "History object not valid",
+                        "description": "History object not valid",
                         "schema": {
                             "$ref": "#/definitions/History"
                         }
@@ -333,7 +401,7 @@
                 ],
                 "responses": {}
             },
-            "delete" : {
+            "delete": {
                 "x-swagger-router-controller": "historyController",
                 "operationId": "delete_a_history",
                 "tags": [
@@ -400,7 +468,7 @@
                         }
                     },
                     "400": {
-                        "description" : "Type object not valid",
+                        "description": "Type object not valid",
                         "schema": {
                             "$ref": "#/definitions/Type"
                         }
@@ -462,7 +530,7 @@
                 ],
                 "responses": {}
             },
-            "delete" : {
+            "delete": {
                 "x-swagger-router-controller": "typeController",
                 "operationId": "delete_a_type",
                 "tags": [
@@ -554,6 +622,20 @@
                 },
                 "Name": {
                     "type": "string"
+                }
+            }
+        },
+        "TypeUser": {
+            "required": [
+                "userId",
+                "typeId"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "integer"
+                },
+                "typeId": {
+                    "type": "integer"
                 }
             }
         }

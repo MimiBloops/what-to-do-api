@@ -70,3 +70,5 @@ History.removeHistoryById = function removeHistoryById(id, result) {
         }
     });
 };
+
+module.exports = History;

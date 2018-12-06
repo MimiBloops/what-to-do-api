@@ -54,3 +54,21 @@ exports.delete_a_user = function(req, res){
         res.json({message: 'User successfully deleted'});
     })
 };
+
+exports.list_type_user = function(req, res){
+    User.getUserType(req.params.userId, function(err, userType){
+        if(err){
+            res.send(err);
+        }
+        res.send(userType);
+    })
+};
+
+exports.add_type_user = function(req, res){
+    User.createUserType(req.params.userId, req.params.typeId, function(err, userType){
+        if(err){
+            res.send(err);
+        }
+        res.send(userType)
+    })
+}
