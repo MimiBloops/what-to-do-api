@@ -33,7 +33,7 @@ Type.getAllType = function getAllType(result){
 };
 
 Type.getTypeById = function getTypeById(typeId, result) {
-    sql.query("Select Type, Name where id = ?", typeId, function (err, res) {
+    sql.query("Select Type, Name from Type where Id = ?", typeId, function (err, res) {
         if (err) {
             console.log("error : ", err);
             result(null, err);
@@ -59,7 +59,7 @@ Type.updateTypeById = function updateTypeById(id, type, result) {
 };
 
 Type.removeTypeById = function removeTypeById(id, result) {
-    sql.query("DELETE FROM Type WHERE id = ?", [id], function (err, res) {
+    sql.query("DELETE FROM Type WHERE Id = ?", [id], function (err, res) {
 
         if (err) {
             console.log("error: ", err);

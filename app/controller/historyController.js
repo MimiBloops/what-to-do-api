@@ -29,6 +29,7 @@ exports.create_a_history = function(req, res){
 };
 
 exports.read_a_history = function(req, res){
+    console.log(req.params.historyId);
     History.getHistoryById(req.params.historyId, function(err, history){
         if(err){
             res.send(err);

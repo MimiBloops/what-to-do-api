@@ -7,7 +7,7 @@ var User = function (user) {
     this.Password = user.Password;
     this.SteamLogin = user.SteamLogin;
     this.SteamPassword = user.SteamPassword;
-    this.TwithLogin = user.TwithLogin;
+    this.TwitchLogin = user.TwithLogin;
     this.TwitchPassword = user.TwitchPassword
 };
 
@@ -38,7 +38,7 @@ User.getAllUsers = function getAllUsers(result) {
 };
 
 User.getUserById = function getUserById(userId, result) {
-    sql.query("Select CreatedAt, Login, Password, StreamLogin, StreamPassword, TwitchLogin, TwitchPassword from User where id = ?", userId, function (err, res) {
+    sql.query("Select CreatedAt, Login, Password, SteamLogin, SteamPassword, TwitchLogin, TwitchPassword from User where id = ?", userId, function (err, res) {
         if (err) {
             console.log("error : ", err);
             result(null, err);
@@ -76,7 +76,7 @@ User.removeUserById = function removeUserById(id, result) {
     });
 };
 
-User.getUserType = function getUserType(id, result){
+User.getUserType = function getUserType(userId, result){
     var sqlQuery = "SELECT t.Type, t.Name FROM Type AS t LEFT JOIN UserType AS ut ON ut.UserId = ? WHERE t.Id = ut.TypeId";
     sql.query(sqlQuery, userId, function(err, res){
         if(err){

@@ -47,6 +47,7 @@ exports.update_a_type = function(req, res){
 };
 
 exports.delete_a_type = function(req, res){
+    console.log(req.params);
     Type.removeTypeById(req.params.typeId, function(err, type){
         if(err){
             res.send(err);

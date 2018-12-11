@@ -14,8 +14,7 @@ exports.list_all_user = function(req, res){
 
 exports.create_a_user = function(req, res){
     var new_user = new User(req.body);
-
-    if(!new_user.CreatedAt || !new_user.Name){
+    if(!new_user.Login || !new_user.Password){
         res.status(400).send({error:true, message: 'Please provide user'});
     }
     else{
@@ -56,6 +55,7 @@ exports.delete_a_user = function(req, res){
 };
 
 exports.list_type_user = function(req, res){
+    console.log(req.params);
     User.getUserType(req.params.userId, function(err, userType){
         if(err){
             res.send(err);
@@ -65,7 +65,7 @@ exports.list_type_user = function(req, res){
 };
 
 exports.add_type_user = function(req, res){
-    User.createUserType(req.params.userId, req.params.typeId, function(err, userType){
+    User.createUserType(req.body.UserId, req.body.TypeId, function(err, userType){
         if(err){
             res.send(err);
         }

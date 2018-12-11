@@ -35,7 +35,7 @@ History.getAllHistory = function getAllHistory(result){
 };
 
 History.getHistoryById = function getHistoryById(historyId, result) {
-    sql.query("Select CreatedAt, IdUser, Type, Name where id = ?", historyId, function (err, res) {
+    sql.query("Select CreatedAt, IdUser, Type, Name from History where Id = ?", historyId, function (err, res) {
         if (err) {
             console.log("error : ", err);
             result(null, err);

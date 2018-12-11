@@ -16,6 +16,14 @@
                 "tags": [
                     "User"
                 ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in" : "header",
+                        "required" : false,
+                        "type" : "string"
+                    }
+                ],
                 "description": "Get all users",
                 "responses": {
                     "200": {
@@ -41,6 +49,7 @@
                         "name": "CreatedAt",
                         "in": "formData",
                         "required": true,
+                        "format": "date",
                         "type": "string"
                     },
                     {
@@ -59,25 +68,25 @@
                         "name": "SteamLogin",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "SteamPassword",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "TwithLogin",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "TwitchPassword",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     }
                 ],
                 "responses": {
@@ -131,15 +140,22 @@
                 "x-swagger-router-controller": "userController",
                 "operationId": "update_a_user",
                 "tags": [
-                    "History"
+                    "User"
                 ],
                 "description": "Update user information from Id",
                 "parameters": [
                     {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
                         "name": "CreatedAt",
                         "in": "formData",
                         "required": true,
-                        "type": "text"
+                        "format": "date",
+                        "type": "string"
                     },
                     {
                         "name": "Login",
@@ -157,25 +173,25 @@
                         "name": "SteamLogin",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "SteamPassword",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "TwithLogin",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "TwitchPassword",
                         "in": "formData",
                         "type": "string",
-                        "required": true
+                        "required": false
                     }
                 ],
                 "responses": {}
@@ -235,13 +251,13 @@
                 "description": "Create a user type",
                 "parameters": [
                     {
-                        "name": "userId",
+                        "name": "UserId",
                         "in": "formData",
                         "required": true,
                         "type": "integer"
                     },
                     {
-                        "name": "typeId",
+                        "name": "TypeId",
                         "in": "formData",
                         "type": "integer",
                         "required": true
@@ -298,6 +314,7 @@
                         "name": "CreatedAt",
                         "in": "formData",
                         "required": true,
+                        "format": "date",
                         "type": "string"
                     },
                     {
@@ -375,9 +392,16 @@
                 "description": "Update history information from Id",
                 "parameters": [
                     {
+                        "name": "historyId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
                         "name": "CreatedAt",
                         "in": "formData",
                         "required": true,
+                        "format": "date",
                         "type": "string"
                     },
                     {
@@ -515,6 +539,12 @@
                 ],
                 "description": "Update type information from Id",
                 "parameters": [
+                    {
+                        "name": "typeId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
                     {
                         "name": "Type",
                         "in": "formData",
