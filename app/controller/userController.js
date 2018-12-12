@@ -1,5 +1,6 @@
 'use strich'
 var User = require('../model/userModel.js');
+var History = require('../model/historyModel.js');
 
 exports.list_all_user = function(req, res){
     User.getAllUsers(function(err, user){
@@ -36,8 +37,26 @@ exports.read_a_user = function(req, res){
     })
 };
 
+exports.read_user_by_login = function(req, res){
+    User.getUserByLogin(req.params.userLogin, function(err, user){
+        if(err){
+            res.send(err);
+        }
+        res.json(user);
+    })
+};
+
 exports.update_a_user = function(req, res){
     User.updateUserById(req.params.userId, new User(req.body), function(err, user){
+        if(err){
+            res.send(err);
+        }
+        res.json(user);
+    })
+};
+
+exports.update_user_by_login = function(req, res){
+    User.updateUserByLogin(req.params.userLogin, new User(req.body), function(err, user){
         if(err){
             res.send(err);
         }
@@ -71,4 +90,29 @@ exports.add_type_user = function(req, res){
         }
         res.send(userType)
     })
-}
+};
+
+exports.read_user_history = function(req, res){
+    User.getUserHistory(req.params.userId, function(err, history){
+        if(err){
+            res.send(err);
+        }
+        res.send(history);
+    })
+};
+
+exports.create_user_history = function(req, res){
+    var new_history = new History(req.body);
+
+    if(!new_history.CreatedAt || !new_history.Name){
+        res.status(400).send({error:true, message: 'Please provide history'});
+    }
+    else{
+        User.createUserHistory(new_history, function(err, history){
+            if(err){
+                res.send(err);
+            }
+            res.json(history);
+        });
+    }
+};

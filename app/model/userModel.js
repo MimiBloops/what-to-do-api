@@ -40,11 +40,20 @@ User.getAllUsers = function getAllUsers(result) {
 User.getUserById = function getUserById(userId, result) {
     sql.query("Select CreatedAt, Login, Password, SteamLogin, SteamPassword, TwitchLogin, TwitchPassword from User where id = ?", userId, function (err, res) {
         if (err) {
-            console.log("error : ", err);
             result(null, err);
         }
         else {
-            console.log('user : ', res);
+            result(null, res);
+        }
+    });
+};
+
+User.getUserByLogin = function getUserByLogin(userLogin, result) {
+    sql.query("Select Id, CreatedAt, Login, Password, SteamLogin, SteamPassword, TwitchLogin, TwitchPassword from User where Login = ?", userLogin, function (err, res) {
+        if (err) {
+            result(null, err);
+        }
+        else {
             result(null, res);
         }
     });
@@ -62,6 +71,19 @@ User.updateUserById = function updateUserById(id, user, result) {
             }
         });
 };
+
+User.updateUserByLogin = function updateUserByLogin(login, user, result) {
+    sql.query("UPDATE User SET CreatedAt = ?, Login = ?, Password = ?, SteamLogin = ?, SteamPassword = ?, TwitchLogin = ?, TwitchPassword = ? WHERE Login = ?",
+        [user.CreatedAt, user.Login, user.Password, user.SteamLogin, user.SteamPassword, user.TwithLogin, user.TwitchPassword, login], function (err, res) {
+            if (err) {
+                result(null, err);
+            }
+            else {
+                result(null, res);
+            }
+        });
+};
+
 
 User.removeUserById = function removeUserById(id, result) {
     sql.query("DELETE FROM User WHERE id = ?", [id], function (err, res) {
@@ -101,5 +123,27 @@ User.createUserType = function createUserType(userId, typeId, result){
         }
     });
 };
+
+User.getUserHistory = function getUserHistory(userId, result){
+    sql.query("Select CreatedAt, IdUser, Type, Name from History where IdUser = ?", userId, function(err, res){
+        if(err){
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+}
+
+User.createUserHistory = function createUserHistory(newHistory, result){
+    sql.query("INSERT INTO History set ?", newHistory, function(err, res){
+        if(err){
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+}
 
 module.exports = User;

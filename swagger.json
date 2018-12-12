@@ -282,6 +282,178 @@
                 }
             }
         },
+        "/users/user/by/login/{userLogin}": {
+            "get": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "read_user_by_login",
+                "tags": [
+                    "User"
+                ],
+                "description": "Get user by login",
+                "parameters": [
+                    {
+                        "name": "userLogin",
+                        "in": "path",
+                        "required": true,
+                        "format": "email",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "put": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "update_user_by_login",
+                "tags": [
+                    "User"
+                ],
+                "description": "Update user by login",
+                "parameters": [
+                    {
+                        "name": "userLogin",
+                        "in": "formData",
+                        "format": "email",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "CreatedAt",
+                        "in": "formData",
+                        "required": true,
+                        "format": "date",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Login",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "Password",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "SteamLogin",
+                        "in": "formData",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "SteamPassword",
+                        "in": "formData",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "TwithLogin",
+                        "in": "formData",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "TwitchPassword",
+                        "in": "formData",
+                        "type": "string",
+                        "required": false
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/users/history/by/id/{userId}": {
+            "get": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "read_user_history",
+                "tags": [
+                    "User"
+                ],
+                "description": "Get user history by userId",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "userController",
+                "operationId": "create_user_history",
+                "tags": [
+                    "User"
+                ],
+                "description": "Create user history",
+                "parameters": [
+                    {
+                        "name": "CreatedAt",
+                        "in": "formData",
+                        "required": true,
+                        "format": "date",
+                        "type": "string"
+                    },
+                    {
+                        "name": "IdUser",
+                        "in": "formData",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "Type",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "Name",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/History"
+                        }
+                    },
+                    "400": {
+                        "description": "History object not valid",
+                        "schema": {
+                            "$ref": "#/definitions/History"
+                        }
+                    },
+                    "default": {
+                        "$ref": "#/definitions/responses/GlobalError"
+                    }
+                }
+            }
+        },
         "/history": {
             "get": {
                 "x-swagger-router-controller": "historyController",
