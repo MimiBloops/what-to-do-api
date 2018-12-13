@@ -26,7 +26,7 @@ app.listen(port);
 
 //app.set('Secret', config.secret);
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 console.log('what to do RESTful API server started on: ' + port);
 

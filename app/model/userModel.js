@@ -12,14 +12,21 @@ var User = function (user) {
 };
 
 User.createUser = function createUser(newUser, result) {
-    sql.query("INSERT INTO User set ?", newUser, function (err, res) {
-        if (err) {
-            console.log("error : ", err);
-            result(err, null);
+    sql.query("Select * From User Where Login = ?", newUser.Login, function(err, res){
+        if(res.length > 1 === false){
+            sql.query("INSERT INTO User set ?", newUser, function (err, res) {
+                    if (err) {
+                        console.log("error : ", err);
+                        result(err, null);
+                    }
+                    else {
+                        console.log(res.insertId);
+                        result(null, res.insertId);
+                    }
+            });
         }
-        else {
-            console.log(res.insertId);
-            result(null, res.insertId);
+        else{
+            result(null, res);
         }
     });
 };
@@ -48,13 +55,24 @@ User.getUserById = function getUserById(userId, result) {
     });
 };
 
-User.getUserByLogin = function getUserByLogin(userLogin, result) {
+User.getUserByLogin = function getUserByLogin(userLogin, userPassword, result) {
     sql.query("Select Id, CreatedAt, Login, Password, SteamLogin, SteamPassword, TwitchLogin, TwitchPassword from User where Login = ?", userLogin, function (err, res) {
         if (err) {
             result(null, err);
         }
         else {
-            result(null, res);
+            // console.log("Model : ");
+            // console.log(userPassword)
+            if(res.Password === userPassword){
+                result(null, res);
+            } 
+            else{
+                const error = {
+                    "message":
+                        "Wrong password"
+                };
+                result(null, error);
+            }
         }
     });
 };
