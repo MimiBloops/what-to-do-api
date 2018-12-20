@@ -3,11 +3,14 @@ var express = require('express'),
     bodyParser = require('body-parser')
     jwt = require('jsonwebtoken')
     config = require('./configuration/config.js')
-    morgan = require('morgan');
-
+    morgan = require('morgan')
+    cors = require('cors');
 port = process.env.PORT || 3000;
 
+app.use(cors({origin: 'http://localhost:3000'}));
+
 const ProtectedRoutes = express.Router();
+
 
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
@@ -26,12 +29,19 @@ app.listen(port);
 
 //app.set('Secret', config.secret);
 
-//app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 console.log('what to do RESTful API server started on: ' + port);
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.use('/help', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', function (req, res) {

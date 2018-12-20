@@ -4,11 +4,9 @@ var History = require('../model/historyModel.js');
 
 exports.list_all_user = function(req, res){
     User.getAllUsers(function(err, user){
-        console.log('get all users');
         if(err){
             res.send(err);
         }
-        console.log('res', user);
         res.send(user);
     });
 };
